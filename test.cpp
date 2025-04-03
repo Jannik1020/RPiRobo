@@ -85,17 +85,17 @@ int main(int argc, char * argv[]) {
     left.forward();
     right.forward();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     left.brake();
     right.brake();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
     left.backward();
     right.backward();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     left.stop();
     right.stop();

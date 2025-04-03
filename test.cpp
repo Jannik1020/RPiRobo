@@ -1,5 +1,6 @@
 #include <chrono>
 #include <thread>
+#include <iostream>
 
 #include <wiringPi.h>
 
@@ -21,6 +22,8 @@ PWMA  IN1  IN2  OUT1  OUT2      PWMB  IN3  IN4  OUT1  OUT2
   1    0    1    0     1          1    0    1    0     1    Reverse
 
 */
+
+using namespace std;
 
 class Motor{
     public:
@@ -82,20 +85,22 @@ int main(int argc, char * argv[]) {
     Motor left(IN1, IN2, PWMA);
     Motor right(IN3, IN4, PWMB);
 
-    left.forward();
-    right.forward();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
-    left.brake();
-    right.brake();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    left.backward();
-    right.backward();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    token = "";
+    while(token != "x"){
+        cin >> token;
+        if(token == "f") {
+            left.forward();
+            right.forward();
+        }
+        else if(token == "b"){
+            left.backward();
+            right.backward();
+        }
+        else if(token == "s") {
+            left.brake();
+            right.brake();
+        }
+    }
 
     left.stop();
     right.stop();

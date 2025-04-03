@@ -85,7 +85,7 @@ int main(int argc, char * argv[]) {
     Motor left(IN1, IN2, PWMA);
     Motor right(IN3, IN4, PWMB);
 
-    token = "";
+    string token = "";
     while(token != "x"){
         cin >> token;
         if(token == "f") {

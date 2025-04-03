@@ -4,9 +4,9 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
-IN1 = 23
-IN2 = 24
-PWMA = 25
+IN1 = 17
+IN2 = 27
+PWMA = 22
 
 GPIO.setup((IN1, IN2, PWMA), GPIO.OUT )
 

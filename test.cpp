@@ -4,13 +4,11 @@
 
 #include <wiringPi.h>
 
-#define IN1 16
-#define IN2 18
-#define IN3 11
-#define IN4 13
+#define IN_A 11
+#define IN_B 13
 
-#define PWMA 22
-#define PWMB 15
+#define PWM_A 22
+#define PWM_B 15
 
 /*
 PWMA  IN1  IN2  OUT1  OUT2      PWMB  IN3  IN4  OUT1  OUT2
@@ -27,14 +25,12 @@ using namespace std;
 
 class Motor{
     public:
-        int in1;
-        int in2;
-        int pwm;
+        int pin_dir;
+        int pin_speed;
 
-        Motor(int pin_in1, int pin_in2, int pin_pwm):in1(pin_in1), in2(pin_in2), pwm(pin_pwm){
-            pinMode(in1, OUTPUT);
-            pinMode(in2, OUTPUT);
-            pinMode(pwm, OUTPUT);
+        Motor(int pin_in, int pin_pwm):pin_dir(pin_in), pwm(pin_pwm){
+            pinMode(pin_dir, OUTPUT);
+            pinMode(pin_speed, OUTPUT);
 
             stop();
         }
@@ -42,38 +38,28 @@ class Motor{
         ~Motor(){
             stop();
 
-            pinMode(in1, INPUT);
-            pinMode(in2, INPUT);
-            pinMode(pwm, INPUT);
+            pinMode(pin_dir, INPUT);
+            pinMode(pin_speed, INPUT);
         }
 
         void forward() {
-            digitalWrite(pwm, HIGH);
-
-            digitalWrite(in1, HIGH);
-            digitalWrite(in2, LOW);
+            digitalWrite(pin_speed, HIGH);
+            digitalWrite(pin_dir, HIGH);
         }
 
         void backward() {
-            digitalWrite(pwm, HIGH);
-
-            digitalWrite(in1, LOW);
-            digitalWrite(in2, HIGH);
+            digitalWrite(pin_speed, HIGH);
+            digitalWrite(pin_dir, LOW);
         }
 
         void brake() {
-            digitalWrite(pwm, HIGH);
-
-            digitalWrite(in1, LOW);
-            digitalWrite(in2, LOW);
+            digitalWrite(pin_speed, LOW);
         }
 
         void stop() {
 
-            digitalWrite(pwm, LOW);
-
-            digitalWrite(in1, LOW);
-            digitalWrite(in2, LOW);
+            digitalWrite(pin_speed, LOW);
+            digitalWrite(pin_dir, LOW);
         }
 };
 
@@ -82,10 +68,28 @@ int main(int argc, char * argv[]) {
 
     wiringPiSetupPinType(WPI_PIN_PHYS);
 
-    Motor left(IN1, IN2, PWMA);
-    Motor right(IN3, IN4, PWMB);
+    Motor left(IN_A, PWM_A);
+    Motor right(IN_B, PWM_B);
 
-    string token = "";
+    left.forward();
+    right.forward();
+
+    this_thread::sleep_for(chrono::milliseconds(300));
+
+    left.brake();
+    right.brake();
+
+    this_thread::sleep_for(chrono::milliseconds(100));
+
+    left.backward();
+    right.backward();
+
+    this_thread::sleep_for(chrono::milliseconds(300));
+
+    left.stop();
+    right.stop();
+
+    /*string token = "";
     while(token != "x"){
         cin >> token;
         if(token == "f") {
@@ -103,5 +107,5 @@ int main(int argc, char * argv[]) {
     }
 
     left.stop();
-    right.stop();
+    right.stop();*/
 }

@@ -28,7 +28,7 @@ class Motor{
         int pin_dir;
         int pin_speed;
 
-        Motor(int pin_in, int pin_pwm):pin_dir(pin_in), pwm(pin_pwm){
+        Motor(int pin_in, int pin_pwm):pin_dir(pin_in), pin_speed(pin_pwm){
             pinMode(pin_dir, OUTPUT);
             pinMode(pin_speed, OUTPUT);
 

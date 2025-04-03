@@ -19,7 +19,13 @@ time.sleep(5)
 
 GPIO.output(IN1, False)
 GPIO.output(IN2, False)
+GPIO.output(PWMA, True)
+
+
+time.sleep(5)
+
 GPIO.output(PWMA, False)
+
 
 
 GPIO.cleanup()

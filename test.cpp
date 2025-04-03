@@ -7,8 +7,8 @@
 #define IN_A 11
 #define IN_B 13
 
-#define PWM_A 22
-#define PWM_B 15
+#define PWM_A 38
+#define PWM_B 36
 
 /*
 PWMA  IN1  IN2  OUT1  OUT2      PWMB  IN3  IN4  OUT1  OUT2

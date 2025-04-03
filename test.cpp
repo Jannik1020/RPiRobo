@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
     digitalWrite(38, HIGH);
     digitalWrite(36, HIGH);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     digitalWrite(38, LOW);
     digitalWrite(36, LOW);
 }

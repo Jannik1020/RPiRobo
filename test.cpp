@@ -24,17 +24,42 @@ PWMA  IN1  IN2  OUT1  OUT2      PWMB  IN3  IN4  OUT1  OUT2
 using namespace std;
 
 
-int main(int argc, char *argv[])
-{
+
+void forward() {
+    digitalWrite(38, HIGH);
+    digitalWrite(36, HIGH);
+}
+
+void brake() {
+    digitalWrite(38, LOW);
+    digitalWrite(36, LOW);
+}
+
+int main() {
+    char c;
 
     wiringPiSetupPinType(WPI_PIN_PHYS);
 
     pinMode(38, OUTPUT);
     pinMode(36, OUTPUT);
 
-    digitalWrite(38, HIGH);
-    digitalWrite(36, HIGH);
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-    digitalWrite(38, LOW);
-    digitalWrite(36, LOW);
+   // Set the terminal to raw mode
+    while(1) {
+        system("stty raw");
+        c = getchar(); 
+        // terminate when "." is pressed
+        system("stty cooked");
+        system("clear");
+        std::cout << c << " was pressed."<< std::endl;
+        if(c == 'w') {
+          forward();
+        }
+        if(c == 'b') {
+          brake();
+        }
+        if(c == '.') {
+            system("stty cooked");
+            exit(0);
+        }  
+    }
 }

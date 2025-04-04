@@ -4,8 +4,8 @@
 
 #include <wiringPi.h>
 
-#define IN_A 11
-#define IN_B 13
+#define DIR_A 11
+#define DIR_B 13
 
 #define PWM_A 38
 #define PWM_B 36
@@ -26,13 +26,22 @@ using namespace std;
 
 
 void forward() {
-    digitalWrite(38, HIGH);
-    digitalWrite(36, HIGH);
+    digitalWrite(PWM_A, HIGH);
+    digitalWrite(PWM_B, HIGH);
+    digitalWrite(DIR_A, LOW);
+    digitalWrite(DIR_B, LOW);
+}
+void backward() {
+    digitalWrite(PWM_A, HIGH);
+    digitalWrite(PWM_B, HIGH);
+    digitalWrite(DIR_A, HIGH);
+    digitalWrite(DIR_B, HIGH);
 }
 
+
 void brake() {
-    digitalWrite(38, LOW);
-    digitalWrite(36, LOW);
+    digitalWrite(PWM_A, LOW);
+    digitalWrite(PWM_B, LOW);
 }
 
 int main() {
@@ -57,8 +66,16 @@ int main() {
         if(c == 'b') {
           brake();
         }
+        if(c== 's') {
+          backward();
+        }
         if(c == '.') {
             system("stty cooked");
+
+            digitalWrite(PWM_A, LOW);
+            digitalWrite(PWM_B, LOW);
+            digitalWrite(DIR_A, LOW);
+            digitalWrite(DIR_B, LOW);
             exit(0);
         }  
     }

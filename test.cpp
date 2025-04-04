@@ -49,8 +49,11 @@ int main() {
 
     wiringPiSetupPinType(WPI_PIN_PHYS);
 
-    pinMode(38, OUTPUT);
-    pinMode(36, OUTPUT);
+    pinMode(PWM_A, OUTPUT);
+    pinMode(PWM_B, OUTPUT);
+
+    pinMode(DIR_A, OUTPUT);
+    pinMode(DIR_B, OUTPUT);
 
    // Set the terminal to raw mode
     while(1) {
